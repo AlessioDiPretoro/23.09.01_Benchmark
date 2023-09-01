@@ -46,7 +46,13 @@ namespace Benchmark
             Console.WriteLine("Inserisci il cognome");
             string cognome = Console.ReadLine();
             Console.WriteLine("Inserisci la data di nascita");
-            DateTime dataN = DateTime.Parse(Console.ReadLine());
+            DateTime dataN = new DateTime();
+            try
+            {
+                dataN = DateTime.Parse(Console.ReadLine());
+            }
+            catch (Exception ex) { Console.WriteLine($"Errore {ex.Message}"); CreaContribuente(); }
+
             Console.WriteLine("Inserisci il codice fiscale");
             string codFisc = Console.ReadLine();
             Console.WriteLine("Inserisci il sesso (M o F)");
@@ -54,8 +60,13 @@ namespace Benchmark
             Console.WriteLine("Inserisci il comune di residenza");
             string comRes = Console.ReadLine();
             Console.WriteLine("Inserisci il reddito annuo");
-            double reddito = Double.Parse(Console.ReadLine());
-            Console.WriteLine("");
+            double reddito = 0;
+            try
+            {
+                reddito = Double.Parse(Console.ReadLine());
+            }
+            catch (Exception ex) { Console.WriteLine($"Errore {ex.Message}"); CreaContribuente(); }
+
             double impostaDaPagare = CalcoloImposta(reddito);
             Contribuente newContr = new Contribuente(nome, cognome, dataN, codFisc, sesso, comRes, reddito, impostaDaPagare);
             TuttiContribuenti.Add(newContr);
@@ -84,10 +95,7 @@ namespace Benchmark
             Console.WriteLine("*---- INIZIO Lista di tutti i contribuenti ----*");
             Console.WriteLine("");
             foreach (Contribuente item in TuttiContribuenti)
-            {
-                //Console.WriteLine($"nome {item.Nome}");
-                item.MostraQuestoContribuente();
-            }
+            { item.MostraQuestoContribuente(); }
             Console.WriteLine("");
             Console.WriteLine("*---- FINE Lista di tutti i contribuenti ----*");
             Console.WriteLine("");
